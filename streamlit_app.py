@@ -29,13 +29,13 @@ fruit_choice = streamlit.text_input('What fruit would you like information about
 streamlit.write('The user entered', fruit_choice)
 
 import requests
-
 fruityvice_response =requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
 # take the json version of the response and normalize it
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 #output it the screen as a table
 streamlit.dataframe(fruityvice_normalized)
 
+#Snowflake Connector
 
 import snowflake.connector
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
@@ -45,4 +45,6 @@ my_data_rows = my_cur.fetchall()
 streamlit.header("The fruit load list contains:")
 streamlit.dataframe(my_data_rows)
 
-
+#Allow user to add a fruit to the list
+streamlit.header('What fruit would you like to add?')
+add_fruit = streamlit.text_input('What fruit would you like information about?')       
